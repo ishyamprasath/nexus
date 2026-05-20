@@ -20,8 +20,8 @@ This orchestration platform leverages a cloud-hosted reasoning brain interacting
 
 ### 1.4 Timeline
 
-* **Duration:** 14 Days (2-Week Sprint)
-* **Sprint Cadence:** 2 days per major architectural module
+* **Duration:** 8 Days (Sprint)
+* **Sprint Cadence:** 1 day per major architectural module
 * **Team Size:** 2 engineers
 
 ---
