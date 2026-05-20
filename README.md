@@ -181,25 +181,25 @@ This orchestration platform leverages a cloud-hosted reasoning brain interacting
 
 ---
 
-## 7. The 14-Day Implementation Plan
+## 7. The 8-Day Implementation Plan
 
-* **Phase 1: Core App Design & Architecture (Days 1–2)**
+* **Day 1 | Phase 1: Core App Design & Architecture**
   Initialize React/Next.js frontend and FastAPI backend. Integrate Neon DB (`pgvector`) and establish the LLM connection (`gemma-4-31b-it`) for the core reasoning loop.
-* **Phase 2: Browser-Use Agent (Days 3–4)**
+* **Day 2 | Phase 2: Browser-Use Agent**
   Integrate Playwright MCP. Map web automation tools to the LLM and verify headless browser task execution.
-* **Phase 3: Vision Model Hosting & Skills (Days 5–6)**
+* **Day 3 | Phase 3: Vision Model Hosting & Skills**
   Deploy UI-TARS-7B/Qwen2.5-VL to a Hugging Face ZeroGPU Gradio Space. Define the strict GUI interaction schemas.
-* **Phase 4: Computer-Use Agent (Days 7–8)**
+* **Day 4 | Phase 4: Computer-Use Agent**
   Fork the UI-TARS Electron desktop client. Establish WebSocket communication with FastAPI and wire up the local screenshot-to-VLM execution pipeline.
-* **Phase 5: Safety Layer (Days 9–10)**
+* **Day 5 | Phase 5: Safety Layer**
   Define risk classifications. Build the React/Electron visual interceptor to pause high-risk GUI actions for explicit human approval.
-* **Phase 6: BUA & CUA Orchestration Testing (Day 11)**
+* **Day 6 | Phase 6: BUA & CUA Orchestration Testing**
   Conduct frictionless, unauthenticated testing of task delegation. Debug complex workflows that require seamless handoffs between Playwright web tasks and UI-TARS local desktop tasks.
-* **Phase 7: Auth & Deployment (Days 12–13)**
+* **Day 7 | Phase 7: Auth & Deployment**
   Implement custom JWT authentication across the frontend, API, and WebSockets. Deploy to Render (Static Site for UI, Web Service for API) and configure keep-alive cron jobs.
-* **Phase 8: Final System Validation (Day 14)**
+* **Day 8 | Phase 8: Final System Validation**
   Conduct complete end-to-end bug bashes using the live deployed application with JWT auth fully enforced. Record the final system demo.
-
+  
 ---
 
 
