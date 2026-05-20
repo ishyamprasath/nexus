@@ -183,50 +183,25 @@ This orchestration platform leverages a cloud-hosted reasoning brain interacting
 
 ## 7. The 14-Day Implementation Plan
 
-### Phase 1: Infrastructure & Auth (Days 1–2)
-
-* **Goal:** Initialize repositories, database connections, and secure authentication.
-* **Backend:** Initialize FastAPI on Render. Connect to Neon DB. Build `SQLAlchemy` schemas for generic `jsonb` working memory. Write custom JWT generation and validation middleware.
-* **Frontend:** Bootstrap the Next.js Render dashboard. Build the login screen, JWT storage logic, and the main dashboard layout shell.
-
-### Phase 2: Core Brain & Vector Memory (Days 3–4)
-
-* **Goal:** Integrate LLM reasoning and pgvector memory storage.
-* **Backend:** Integrate the `gemma-4-31b-it` API. Write the core ReAct while-loop.
-* **Database:** Enable `pgvector` in Neon DB. Write embedding logic for episodic task summaries and the cosine similarity search function.
-
-### Phase 3: The Browser-Use Agent (Days 5–6)
-
-* **Goal:** Enable web automation capabilities.
-* **Integration:** Install Playwright MCP server. Map MCP tools (navigate, click, extract) to the Gemma tool registry in FastAPI.
-* **Testing:** Ensure the cloud backend successfully parses web goals and triggers Playwright sequences.
-
-### Phase 4: The UI-TARS & Gradio VLM Integration (Days 7–8)
-
-* **Goal:** Set up the visual desktop agent and the free 24/7 VLM endpoint.
-* **VLM Hosting:** Deploy the UI-TARS-7B or Qwen2.5-VL model to a Hugging Face Space using the Gradio template and ZeroGPU hardware.
-* **Local CUA:** Fork the `bytedance/UI-TARS-desktop` Electron app. Configure it to listen to your FastAPI WebSockets.
-* **API Bridge:** Integrate the Python `gradio_client` into the local UI-TARS pipeline so it sends desktop screenshots to your HF Space and executes the returned mouse/keyboard coordinates locally.
-
-### Phase 5: Orchestration & Delegation (Days 9–10)
-
-* **Goal:** Seamlessly shift between BUA and CUA.
-* **Logic:** Upgrade the FastAPI planner to decompose complex prompts, handing web tasks to Playwright and local visual tasks to UI-TARS within the same execution run.
-* **State Management:** Ensure execution state streams accurately to Neon DB, handling the initial cold start delay from the Hugging Face ZeroGPU endpoint gracefully.
-
-### Phase 6: The Safety Dashboard (Days 11–12)
-
-* **Goal:** Build the human-in-the-loop interceptor natively in the desktop client.
-* **Safety Rules:** Define risk classifications for UI-TARS actions (e.g., clicking on system settings or terminal apps is flagged as High Risk).
-* **UI Implementation:** Modify the UI-TARS React/Electron shell to pop up a visual confirmation—displaying the screenshot and a marker indicating where the VLM intends to click—before executing any high-risk action.
-
-### Phase 7: Deployment & Demo Polish (Days 13–14)
-
-* **Goal:** Ship and harden the platform.
-* **Deployment:** Push Next.js to Render Static Site and FastAPI to Render Web Service. Add an uptime ping (via cron-job.org) to prevent the backend spin-down.
-* **Validation:** Run end-to-end bug bashes. Verify JWT handling, test WebSocket stability, and record the final demo.
+* **Phase 1: Core App Design & Architecture (Days 1–2)**
+  Initialize React/Next.js frontend and FastAPI backend. Integrate Neon DB (`pgvector`) and establish the LLM connection (`gemma-4-31b-it`) for the core reasoning loop.
+* **Phase 2: Browser-Use Agent (Days 3–4)**
+  Integrate Playwright MCP. Map web automation tools to the LLM and verify headless browser task execution.
+* **Phase 3: Vision Model Hosting & Skills (Days 5–6)**
+  Deploy UI-TARS-7B/Qwen2.5-VL to a Hugging Face ZeroGPU Gradio Space. Define the strict GUI interaction schemas.
+* **Phase 4: Computer-Use Agent (Days 7–8)**
+  Fork the UI-TARS Electron desktop client. Establish WebSocket communication with FastAPI and wire up the local screenshot-to-VLM execution pipeline.
+* **Phase 5: Safety Layer (Days 9–10)**
+  Define risk classifications. Build the React/Electron visual interceptor to pause high-risk GUI actions for explicit human approval.
+* **Phase 6: BUA & CUA Orchestration Testing (Day 11)**
+  Conduct frictionless, unauthenticated testing of task delegation. Debug complex workflows that require seamless handoffs between Playwright web tasks and UI-TARS local desktop tasks.
+* **Phase 7: Auth & Deployment (Days 12–13)**
+  Implement custom JWT authentication across the frontend, API, and WebSockets. Deploy to Render (Static Site for UI, Web Service for API) and configure keep-alive cron jobs.
+* **Phase 8: Final System Validation (Day 14)**
+  Conduct complete end-to-end bug bashes using the live deployed application with JWT auth fully enforced. Record the final system demo.
 
 ---
+
 
 ## 8. Ownership & Workstream Split
 
