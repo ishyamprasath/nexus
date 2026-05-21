@@ -22,7 +22,7 @@ This orchestration platform leverages a cloud-hosted reasoning brain interacting
 
 * **Duration:** 8 Days (Sprint)
 * **Sprint Cadence:** 1 day per major architectural module
-* **Team Size:** 2 engineers
+* **Team Size:** 1 engineer
 
 ---
 
@@ -148,11 +148,11 @@ This orchestration platform leverages a cloud-hosted reasoning brain interacting
 | **Cloud Brain (Text)** | `gemma-4-31b-it` via API |
 | **Database / Memory** | Neon DB (PostgreSQL + `pgvector`) |
 | **Browser Automation (BUA)** | Playwright MCP |
-| **Desktop Automation (CUA)** | UI-TARS Desktop (Forked Electron App) |
+| **Desktop Automation (CUA)** | UI-TARS Desktop (Forked Tauri App) |
 | **Vision Model (CUA Brain)** | UI-TARS-7B or Qwen2.5-VL via Hugging Face Gradio Space |
 | **Authentication** | Custom JWT |
 | **Deployment** | Render (Web Service for API, Static Site for UI) |
-| **Observability** | Langfuse / OpenTelemetry |
+| **Observability** | OpenTelemetry |
 
 ---
 
@@ -176,7 +176,7 @@ This orchestration platform leverages a cloud-hosted reasoning brain interacting
 
 ### 6.4 Safety
 
-* [ ] High-risk local actions trigger a visual pause in the UI-TARS React/Electron shell, showing the user the intended click/action and requiring a manual JWT-authenticated approval.
+* [ ] High-risk local actions trigger a visual pause in the UI-TARS React/Tauri shell, showing the user the intended click/action and requiring a manual JWT-authenticated approval.
 * [ ] Budget exceeded → execution halts gracefully with a summary of work completed.
 
 ---
@@ -190,9 +190,9 @@ This orchestration platform leverages a cloud-hosted reasoning brain interacting
 * **Day 3 | Phase 3: Vision Model Hosting & Skills**
   Deploy UI-TARS-7B/Qwen2.5-VL to a Hugging Face ZeroGPU Gradio Space. Define the strict GUI interaction schemas.
 * **Day 4 | Phase 4: Computer-Use Agent**
-  Fork the UI-TARS Electron desktop client. Establish WebSocket communication with FastAPI and wire up the local screenshot-to-VLM execution pipeline.
+  Fork the UI-TARS Tauri desktop client. Establish WebSocket communication with FastAPI and wire up the local screenshot-to-VLM execution pipeline.
 * **Day 5 | Phase 5: Safety Layer**
-  Define risk classifications. Build the React/Electron visual interceptor to pause high-risk GUI actions for explicit human approval.
+  Define risk classifications. Build the React/Tauri visual interceptor to pause high-risk GUI actions for explicit human approval.
 * **Day 6 | Phase 6: BUA & CUA Orchestration Testing**
   Conduct frictionless, unauthenticated testing of task delegation. Debug complex workflows that require seamless handoffs between Playwright web tasks and UI-TARS local desktop tasks.
 * **Day 7 | Phase 7: Auth & Deployment**
@@ -207,10 +207,8 @@ This orchestration platform leverages a cloud-hosted reasoning brain interacting
 
 | Engineer | Primary Ownership | Secondary / Shared |
 | --- | --- | --- |
-| **Engineer 1** | FastAPI Orchestrator, Gemma planning logic, Playwright MCP, HF Gradio Space deployment | Vector DB tuning, E2E benchmarks |
-| **Engineer 2** | UI-TARS Desktop fork (React/Electron), Next.js Cloud Dashboard, Safety Intercept UI, Custom JWT | Render deployment, Neon DB schemas |
+| **Engineer 1** | FastAPI Orchestrator, Gemma planning logic, Playwright MCP, HF Gradio Space deployment | Vector DB tuning, E2E benchmarks | UI-TARS Desktop fork (React/Electron), Next.js Cloud Dashboard, Safety Intercept UI, Custom JWT | Render deployment, Neon DB schemas |
 
-*(Note: Engineer 2 will leverage product design skills to strip out the default UI-TARS interface and build a sleek, custom safety approval window natively in the Electron shell).*
 
 ---
 
