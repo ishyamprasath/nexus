@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Agent</title>
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <div class="nexus-container">
+    <!-- Header -->
+    <header class="nexus-header">
+      <div class="logo">
+        <span class="logo-icon">&#9672;</span>
+        <span class="logo-text">Nexus</span>
+      </div>
+      <div class="header-actions">
+        <button id="btn-dashboard" class="icon-btn" title="Dashboard">&#9638;</button>
+        <button id="btn-close" class="icon-btn" title="Close">&#10005;</button>
+      </div>
+    </header>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-indicator" id="status-indicator">
+        <span class="status-dot idle"></span>
+        <span class="status-text">Ready</span>
+      </div>
+      <div class="connection-status" id="connection-status">Disconnected</div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Chat / Task Area -->
+      <div class="chat-section" id="chat-section">
+        <div class="messages" id="messages"></div>
+      </div>
+
+      <!-- Dashboard Panel (hidden by default) -->
+      <div class="dashboard-panel hidden" id="dashboard-panel">
+        <h3>Safety Dashboard</h3>
+        <div class="stats-grid" id="stats-grid"></div>
+        <h4>Recent Safety Events</h4>
+        <div class="safety-events" id="safety-events"></div>
+        <h4>Active Executions</h4>
+        <div class="active-executions" id="active-executions"></div>
+      </div>
+
+      <!-- Graph Visualization Panel (hidden by default) -->
+      <div class="graph-panel hidden" id="graph-panel">
+        <h3>Agent Orchestration Graph</h3>
+        <div class="graph-canvas" id="graph-canvas">
+          <canvas id="graph-canvas-el"></canvas>
+        </div>
+        <div class="task-queue" id="task-queue"></div>
+      </div>
+
+      <!-- Thinking Traces Panel (hidden by default) -->
+      <div class="thinking-panel hidden" id="thinking-panel">
+        <h3>Thinking Traces</h3>
+        <div class="thinking-list" id="thinking-list"></div>
+      </div>
+    </main>
+
+    <!-- Input Area -->
+    <footer class="input-area">
+      <div class="input-toolbar">
+        <button id="btn-image" class="toolbar-btn" title="Upload Image">&#128248;</button>
+        <button id="btn-graph" class="toolbar-btn" title="View Graph">&#127760;</button>
+        <button id="btn-thinking" class="toolbar-btn" title="Thinking">&#128161;</button>
+      </div>
+      <div class="input-wrapper">
+        <textarea id="task-input" placeholder="What should Nexus do? (e.g., 'Go to YouTube and play Hotel California')" rows="2"></textarea>
+        <button id="btn-send" class="send-btn">&#9654;</button>
+      </div>
+      <input type="file" id="image-upload" accept="image/*" style="display:none">
+    </footer>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,4 +1,111 @@
-# Autonomous AI Agent System - Comprehensive Requirements Document
+# Nexus - Autonomous AI Agent System
+
+> **Status: Core system built and tested.** Backend orchestrator, Chrome extension sidebar, multi-agent ReACT pipeline, safety dashboard, and Neo4j graph memory all implemented.
+
+## Quick Start
+
+### 1. Start Backend
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate  # Windows
+pip install -r requirements.txt
+python main.py  # Starts on http://localhost:8001
+```
+
+### 2. Start Neo4j (optional - falls back to in-memory mode)
+```bash
+docker-compose up -d
+# UI: http://localhost:7474 | Bolt: bolt://localhost:7687
+# Auth: neo4j / nexus123
+```
+
+### 3. Load Chrome Extension
+1. Open `chrome://extensions`
+2. Enable **Developer Mode**
+3. Click **Load unpacked** → select `chrome-extension/` folder
+4. Press `Ctrl+Shift+N` to toggle sidebar
+
+### 4. Start Chrome with Remote Debugging (for browser automation)
+```bash
+chrome.exe --remote-debugging-port=9222
+```
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/chat` | POST | Quick Gemini chat (no orchestration) |
+| `/api/agent` | POST | Start multi-agent task (returns immediately) |
+| `/api/vision` | POST | Image analysis with Gemini vision |
+| `/api/dashboard` | GET | Safety dashboard stats + active executions |
+| `/api/execution/{id}` | GET | Get execution details + sub-tasks |
+| `/api/execution/{id}/graph` | GET | Neo4j graph visualization data |
+| `/api/safety/events` | GET | Safety audit log |
+| `/api/ws/agent/{id}` | WS | Real-time execution updates |
+
+## Architecture
+
+```
+Chrome Extension (Sidebar UI)
+    │
+    ├── Chat Input ──► /api/chat (direct Gemini)
+    ├── Task Input ──► /api/agent (multi-agent orchestrator)
+    ├── Image Upload ─► /api/vision (Gemini vision)
+    ├── Dashboard  ──► /api/dashboard (stats + safety)
+    └── WebSocket  ──► /api/ws/agent/{id} (real-time updates)
+
+Backend (FastAPI)
+    │
+    ├── MultiAgentOrchestrator
+    │   ├── Planner Agent (breaks task into sub-tasks)
+    │   ├── Researcher Agent (finds info)
+    │   ├── Executor Agent (performs actions)
+    │   └── Critic Agent (verifies results)
+    │
+    ├── TaskQueue (dependency resolution, priority ordering)
+    ├── SafetyPolicy (deny-by-default, user approval hooks)
+    ├── Neo4jMemory (graph storage for execution traces)
+    └── ReACTAgent (think → act → observe loop)
+
+Gemini API (gemma-4-31b-it - free tier)
+    ├── Text generation
+    ├── Multimodal (image + text)
+    └── Task planning + synthesis
+```
+
+## Project Structure
+
+```
+nexus/
+├── backend/
+│   ├── main.py                    # FastAPI entry point
+│   ├── .env                       # GEMINI_API_KEY, GEMINI_MODEL
+│   ├── requirements.txt
+│   └── nexus/
+│       ├── config.py              # Environment configuration
+│       ├── models.py              # Pydantic data models
+│       ├── agent/
+│       │   ├── react_agent.py     # ReACT reasoning loop
+│       │   ├── orchestrator.py    # Multi-agent coordinator
+│       │   ├── task_queue.py      # Sub-task queue + dependencies
+│       │   ├── safety.py          # Deny-by-default safety
+│       │   └── memory.py          # Neo4j graph memory
+│       └── api/
+│           └── routes.py          # REST + WebSocket endpoints
+├── chrome-extension/
+│   ├── manifest.json              # Manifest V3
+│   ├── background.js              # Service worker
+│   ├── content.js                 # Sidebar injection
+│   ├── sidebar.html/js/css        # Main UI
+│   ├── popup.html/js              # Settings popup
+│   └── icons/                     # Extension icons
+└── docker-compose.yml             # Neo4j container
+```
+
+---
+
+# Comprehensive Requirements Document
 
 ## 1. Overview
 

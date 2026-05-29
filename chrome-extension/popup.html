@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Agent - Settings</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 320px;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding: 16px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .logo-icon { font-size: 24px; color: #00d4ff; }
+    .logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .section { margin-bottom: 16px; }
+    .section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+    }
+    .setting-label { font-size: 13px; color: #aaa; }
+    .setting-value {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: #e0e0e0;
+      font-size: 12px;
+      width: 160px;
+    }
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #e0e0e0;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    .btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(123,47,247,0.2));
+      border-color: rgba(0,212,255,0.3);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, rgba(0,212,255,0.3), rgba(123,47,247,0.3));
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      font-size: 12px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .status-dot.online { background: #4ade80; box-shadow: 0 0 6px #4ade80; }
+    .status-dot.offline { background: #f87171; }
+    .shortcut {
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo-icon">&#9672;</span>
+    <span class="logo-text">Nexus Agent</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Status</div>
+    <div class="status-row">
+      <span class="status-dot" id="backend-status"></span>
+      <span id="backend-text">Checking backend...</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Configuration</div>
+    <div class="setting-row">
+      <span class="setting-label">Backend URL</span>
+      <input type="text" class="setting-value" id="backend-url" value="http://localhost:8001">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Actions</div>
+    <button class="btn btn-primary" id="btn-toggle">Toggle Sidebar</button>
+    <button class="btn" id="btn-dashboard">Open Dashboard</button>
+    <button class="btn" id="btn-clear">Clear Chat History</button>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Help</div>
+    <div class="status-row">
+      <span>Keyboard shortcut:</span>
+      <span class="shortcut">Ctrl+Shift+N</span>
+    </div>
+    <div style="font-size:11px;color:#555;margin-top:8px;line-height:1.5;">
+      Start Chrome with remote debugging:<br>
+      <code style="font-size:10px;">chrome.exe --remote-debugging-port=9222</code>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
